@@ -14,11 +14,6 @@ class DemoController {
         return "Spring Boot REST service running: Served by " + getClass().getName();
     }
 
-    @RequestMapping(method = GET, path = "version")
-    public String version() {
-        return getClass().getPackage().getImplementationVersion();
-    }
-
     @RequestMapping(method = GET, path = "hello/{name}")
     public String person(@PathVariable String name) {
         return "Hello " + name + "!";

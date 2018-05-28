@@ -1,4 +1,4 @@
-package com.atomist.spring;
+package com.atomist.play;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,8 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(SpringController.class)
-public class SpringControllerTests {
+@WebMvcTest(DemoController.class)
+public class DemoControllerTests {
 
 	@Autowired
 	private MockMvc mockMvc;

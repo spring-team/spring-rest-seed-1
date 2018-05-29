@@ -58,7 +58,9 @@ public class SentryConfiguration {
             owner = url.substring(ix + 1);
         }
 
-        Sentry.init(this.dsn + "?extra=git_sha:" + this.gitProperties.getCommitId()+ ",git_repo:" + repo + ",git_owner:" + owner + ",environment:" + this.environment
+        String env = this.environment.replace(":", "_");
+
+        Sentry.init(this.dsn + "?extra=git_sha:" + this.gitProperties.getCommitId()+ ",git_repo:" + repo + ",git_owner:" + owner + ",environment:" + env
                 + "&release=" + this.gitProperties.getCommitId() + "&environment=" + this.environment + "&servername=" + this.server);
     }
 }

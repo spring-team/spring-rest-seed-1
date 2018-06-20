@@ -1,0 +1,12 @@
+#!/bin/bash
+
+MAVEN=$HOME/.m2
+if [ ! -d $MAVEN ]; then
+   mkdir -p $MAVEN
+fi
+
+CACHE=/opt/data/$ATOMIST_OWNER/$ATOMIST_REPO
+FILE=$CACHE/maven-repository.tar.gz     
+if [ -f $FILE ]; then
+   tar -zxf $FILE -C $MAVEN
+fi

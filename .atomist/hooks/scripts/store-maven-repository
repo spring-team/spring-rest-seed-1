@@ -1,0 +1,9 @@
+#!/bin/bash
+
+CACHE=/opt/data/$ATOMIST_OWNER/$ATOMIST_REPO
+if [ ! -d $CACHE ]; then
+   mkdir -p $CACHE
+fi
+
+FILE=$CACHE/maven-repository.tar.gz     
+tar -zcf $FILE -C ~/.m2 repository

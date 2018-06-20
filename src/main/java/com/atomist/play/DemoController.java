@@ -11,7 +11,7 @@ class DemoController {
 
     @RequestMapping(method = GET, path = "/")
     public String root() {
-        return "Hello Kubernetes demo! I'm served by " + getClass().getName();
+        return "Hello Kubernetes demo on Wed! I'm served by " + getClass().getName();
     }
 
     @RequestMapping(method = GET, path = "hello/{name}")

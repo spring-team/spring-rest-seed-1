@@ -5,7 +5,7 @@ logging:
 atomist:
   enabled: true
   debug: true
-  url: 'https://webhook.atomist.com/atomist/application/teams/${ATOMIST_TEAM:${random.value}}'
+  url: 'https://webhook.atomist.com/atomist/application/teams/${ATOMIST_WORKSPACE:${random.value}}'
   environment:
     domain: '${ATOMIST_ENVIRONMENT:${vcap.application.space_name:local}}'
     pod: '${HOSTNAME:${random.value}}'

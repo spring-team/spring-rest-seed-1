@@ -25,8 +25,11 @@ public class SentryConfiguration {
     @Value("${atomist.environment.pod}")
     private String server;
 
-    @Autowired
     private GitProperties gitProperties;
+    
+    public SentryConfiguration(GitProperties gitProperties) {
+        this.gitProperties = gitProperties;
+    }
 
     @Bean
     public HandlerExceptionResolver sentryExceptionResolver() {

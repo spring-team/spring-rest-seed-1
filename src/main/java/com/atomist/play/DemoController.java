@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 class DemoController {
 
-    @GetMapping("/")
-    public String root() {
-        return "Hello Kubernetes demo on Wed! I'm served by " + getClass().getName();
-    }
+	@GetMapping("/")
+	public String root() {
+		return "Hello Kubernetes demo on Wed! I'm served by " + getClass().getName();
+	}
 
-    @GetMapping("hello/{name}")
-    public String person(@PathVariable String name) {
-        return "Hello " + name + "!";
-    }
+	@GetMapping("hello/{name}")
+	public String person(@PathVariable String name) {
+		return "Hello " + name + "!";
+	}
 
 }

@@ -16,54 +16,58 @@ import javax.annotation.PostConstruct;
 @Configuration
 public class SentryConfiguration {
 
-    @Value("${raven.dsn}")
-    private String dsn;
+	@Value("${raven.dsn}")
+	private String dsn;
 
-    @Value("${atomist.environment.domain}")
-    private String environment;
+	@Value("${atomist.environment.domain}")
+	private String environment;
 
-    @Value("${atomist.environment.pod}")
-    private String server;
+	@Value("${atomist.environment.pod}")
+	private String server;
 
-    private GitProperties gitProperties;
-    
-    public SentryConfiguration(GitProperties gitProperties) {
-        this.gitProperties = gitProperties;
-    }
+	private GitProperties gitProperties;
 
-    @Bean
-    public HandlerExceptionResolver sentryExceptionResolver() {
-        return new SentryExceptionResolver();
-    }
+	public SentryConfiguration(GitProperties gitProperties) {
+		this.gitProperties = gitProperties;
+	}
 
-    @Bean
-    public ServletContextInitializer sentryServletContextInitializer() {
-        return new SentryServletContextInitializer();
-    }
+	@Bean
+	public HandlerExceptionResolver sentryExceptionResolver() {
+		return new SentryExceptionResolver();
+	}
 
-    @PostConstruct
-    public void init() {
+	@Bean
+	public ServletContextInitializer sentryServletContextInitializer() {
+		return new SentryServletContextInitializer();
+	}
 
-        String url = this.gitProperties.get("remote.origin.url");
-        String owner = "";
-        String repo = "";
-        url = url.replace(".git", "");
-        if (url.startsWith("git")) {
-            int ix = url.lastIndexOf(":");
-            String slug = url.substring(ix + 1);
-            owner = slug.split("/")[0];
-            repo = slug.split("/")[1];
-        } else {
-            int ix = url.lastIndexOf("/");
-            repo = url.substring( ix + 1);
-            url = url.substring(0, ix);
-            ix = url.lastIndexOf("/");
-            owner = url.substring(ix + 1);
-        }
+	@PostConstruct
+	public void init() {
 
-        String env = this.environment.replace(":", "_");
+		String url = this.gitProperties.get("remote.origin.url");
+		String owner = "";
+		String repo = "";
+		url = url.replace(".git", "");
+		if (url.startsWith("git")) {
+			int ix = url.lastIndexOf(":");
+			String slug = url.substring(ix + 1);
+			owner = slug.split("/")[0];
+			repo = slug.split("/")[1];
+		}
+		else {
+			int ix = url.lastIndexOf("/");
+			repo = url.substring(ix + 1);
+			url = url.substring(0, ix);
+			ix = url.lastIndexOf("/");
+			owner = url.substring(ix + 1);
+		}
 
-        Sentry.init(this.dsn + "?extra=git_sha:" + this.gitProperties.getCommitId()+ ",git_repo:" + repo + ",git_owner:" + owner + ",environment:" + env
-                + "&release=" + this.gitProperties.getCommitId() + "&environment=" + this.environment + "&servername=" + this.server);
-    }
+		String env = this.environment.replace(":", "_");
+
+		Sentry.init(this.dsn + "?extra=git_sha:" + this.gitProperties.getCommitId()
+				+ ",git_repo:" + repo + ",git_owner:" + owner + ",environment:" + env
+				+ "&release=" + this.gitProperties.getCommitId() + "&environment="
+				+ this.environment + "&servername=" + this.server);
+	}
+
 }

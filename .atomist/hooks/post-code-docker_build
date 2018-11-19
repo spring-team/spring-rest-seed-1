@@ -1,3 +1,0 @@
-#!/bin/bash
-
-./scripts/store-maven-repository

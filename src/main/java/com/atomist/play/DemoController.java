@@ -9,7 +9,7 @@ class DemoController {
 
 	@GetMapping("/")
 	public String root() {
-		return "Hello Copenhagen! I'm served by " + getClass().getName();
+		return "Hello Copenhagen Tuesday 16:37! I'm served by " + getClass().getName();
 	}
 
 	@GetMapping("hello/{name}")
